@@ -20,6 +20,7 @@ import {
 import { ACTION_TYPES, DiagnosticLevel } from '../../types.js'
 import { translateOptions } from './cli.js'
 import { options as optionator } from './options.js'
+import chalk from 'chalk'
 
 const __filename = fileURLToPath(import.meta.url)
 const require = Module.createRequire(import.meta.url)
@@ -117,6 +118,7 @@ const createDiagnostic: CreateDiagnostic<'eslint'> = (pluginConfig) => {
         if (type === 'unlink') {
           manager.updateByFileId(absPath, [])
         } else if (type === 'change') {
+          consoleLog(chalk['blue'](`[ESLint] Checking...`))
           const diagnosticsOfChangedFile = await eslint.lintFiles(filePath)
           const newDiagnostics = diagnosticsOfChangedFile
             .map((d) => normalizeEslintDiagnostic(d))
@@ -128,7 +130,7 @@ const createDiagnostic: CreateDiagnostic<'eslint'> = (pluginConfig) => {
       }
 
       // initial lint
-      consoleLog('Starting eslint checks...')
+      consoleLog(chalk['blue'](`[ESLint] Starting...`))
       const files = options._.slice(1)
       const diagnostics = await eslint.lintFiles(files)
 

@@ -98,7 +98,6 @@ const createDiagnostic: CreateDiagnostic<'stylelint'> = (pluginConfig) => {
       }
 
       // initial lint
-      consoleLog('Starting eslint checks...')
       const { results: diagnostics } = await stylelint.lint({
         ...baseConfig,
         ...pluginConfig.stylelint.dev?.overrideConfig,
