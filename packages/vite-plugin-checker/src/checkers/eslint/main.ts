@@ -128,6 +128,7 @@ const createDiagnostic: CreateDiagnostic<'eslint'> = (pluginConfig) => {
       }
 
       // initial lint
+      consoleLog('Starting eslint checks...')
       const files = options._.slice(1)
       const diagnostics = await eslint.lintFiles(files)
 
